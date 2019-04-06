@@ -1,0 +1,30 @@
+.navigation {
+  &__menu {
+    display: flex;
+    margin: 0;
+    &--horisontal {
+      flex-direction: row;
+    }
+    &--vertical {
+      flex-direction: column;
+    }
+  }
+  &__item {
+    list-style-type: none;
+    display: flex;
+  }
+  &__link {
+    height: 64px;
+    line-height: 64px;
+    padding: 0 30px;
+    background-color: #efefef;
+    transition: .3s;
+    color: #333;
+    &:hover,
+    &--active {
+      background-color: #dedede;
+      color: #000;
+      text-decoration: none;
+    }
+  }
+}
