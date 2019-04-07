@@ -5,7 +5,7 @@ import Answer from '../models/Answer';
 import User from '../models/User';
 import { connect } from 'react-redux';
 import { AppState } from '../store';
-import { updateAdjacencyMatrix } from '../store/actions';
+import { updateAdjacencyMatrix, updateUsers } from '../store/actions';
 
 const createEmptySquareMatrix = (size: number) => Array(size).fill([]).map(() => Array(size).fill(0));
 
@@ -25,6 +25,7 @@ interface Props {
   users: User[];
   answers: Answer[];
   updateAdjacencyMatrix: (arr: number[][]) => void;
+  updateUsers: (arr: User[]) => void;
 }
 
 export class MatrixPageView extends React.Component<Props> {
@@ -41,8 +42,9 @@ export class MatrixPageView extends React.Component<Props> {
     const matrix = createAdjacencyMatrix(answers, users.length);
 
     console.log(matrix);
+    this.props.updateUsers(users);
     this.props.updateAdjacencyMatrix(matrix);
-
+    
     this.setState({ answers, users, matrix });
   }
 
@@ -51,7 +53,7 @@ export class MatrixPageView extends React.Component<Props> {
   }
 
   render() {
-    return <MatrixView onSubmit={this.props.updateAdjacencyMatrix} matrix={this.state.matrix} />;
+    return <MatrixView onSubmit={this.props.updateAdjacencyMatrix} matrix={this.props.adjacencyMatrix} />;
   }
 }
 
@@ -62,7 +64,8 @@ const mapStateToProps = (state: AppState) => ({
 })
 
 const mapDispatchToProps = ({
-  updateAdjacencyMatrix
+  updateAdjacencyMatrix,
+  updateUsers
 });
 
 export const MatrixPage = connect(

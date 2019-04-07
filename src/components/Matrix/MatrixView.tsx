@@ -5,7 +5,7 @@ import { interpolate } from 'd3';
 import './MatrixView.scss';
 
 interface Props {
-  matrix: any[][];
+  matrix: number[][];
   onSubmit: any;
 }
 

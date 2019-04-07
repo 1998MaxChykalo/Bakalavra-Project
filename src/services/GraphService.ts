@@ -5,8 +5,8 @@ interface Vertex {
 }
 
 interface Edge {
-  from: number;
-  to: number;
+  source: number;
+  target: number;
   weight: number;
 }
 
@@ -24,7 +24,7 @@ export class GraphService {
       vertices.push({id: i})
       row.forEach((val, j) => {
         if (i === j || val === 0) return;
-        edges.push({weight: val, from: i, to: j});
+        edges.push({weight: val, source: i, target: j});
       });
     });
     return <Graph> {

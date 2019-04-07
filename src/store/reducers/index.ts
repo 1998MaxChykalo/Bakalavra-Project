@@ -15,9 +15,14 @@ export const reducer = (state: AppState = initialState, action: SociologyActionT
         ...state,
         adjacencyMatrix: action.payload
       }
+    case SociologyActionKeys.UPDATE_USERS:
+      return {
+        ...state,
+        users: action.payload
+      }
     default:
       return state;
   }
 }
 
-export const rootReducer = combineReducers({root: reducer});
+export const rootReducer = combineReducers({ root: reducer });
