@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { MatrixView } from '../components/Matrix/MatrixView';
-import { fetchAnswers, fetchUsers } from '../api';
 import Answer from '../models/Answer';
 import User from '../models/User';
 import { connect } from 'react-redux';
 import { AppState } from '../store';
 import { updateAdjacencyMatrix, updateUsers } from '../store/actions';
+import { getAnswers } from '../store/selectors/answers';
+import { getUsers } from '../store/selectors/users';
 
 const createEmpty2dArray = (size: number) => Array(size).fill([]).map(() => Array(size).fill(0));
 
@@ -29,22 +30,11 @@ interface Props {
 }
 
 export class MatrixPageView extends React.Component<Props> {
-  state: { matrix: any[], answers: Answer[], size: number, users: User[] } = {
-    matrix: [],
-    answers: [],
-    users: [],
-    size: 0
-  };
 
-  async componentDidMount() {
-    const answers = await fetchAnswers()
-    const users = await fetchUsers();
+  componentDidMount() {
+    const {answers, users} = this.props;
     const matrix = createAdjacencyMatrix(answers, users.length);
-
-    this.props.updateUsers(users);
     this.props.updateAdjacencyMatrix(matrix);
-    
-    this.setState({ answers, users, matrix });
   }
 
   changeSize = (newSize: number) => {
@@ -58,8 +48,8 @@ export class MatrixPageView extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState) => ({
   adjacencyMatrix: state.adjacencyMatrix,
-  users: state.users,
-  answers: state.answers,
+  users: getUsers(state),
+  answers: getAnswers(state),
 })
 
 const mapDispatchToProps = ({

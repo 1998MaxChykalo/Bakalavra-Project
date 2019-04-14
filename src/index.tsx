@@ -8,7 +8,7 @@ import 'antd/dist/antd.css';
 import { HomePage } from './pages/HomePage';
 import { MatrixPage } from './pages/MatrixPage';
 import { GraphPage } from './pages/GraphPage';
-import App from './components/App/App';
+import App from './components/App';
 import { Provider } from 'react-redux';
 import { store } from './store';
 

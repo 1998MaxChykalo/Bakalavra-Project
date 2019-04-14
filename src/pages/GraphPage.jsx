@@ -1,16 +1,15 @@
 import * as React from "react";
-import { AppState } from "../store";
 import { connect } from "react-redux";
 import { GraphService } from "../services/GraphService";
 
-import { interpolate, extent, scaleLinear, sum } from "d3";
+import { extent, scaleLinear } from "d3";
 
 import { ForceGraph2D, ForceGraph3D } from "react-force-graph";
 import bellmanFord from "../services/FordBellmanService";
 import { Graph } from "./../services/GraphService";
-// interface Props {
-//   adjacencyMatrix: number[][];
-// }
+
+import { getUsers } from './../store/selectors/users';
+
 
 const sumColumns = (matrix = []) => {
   const res = [];
@@ -78,9 +77,9 @@ export const GraphPageComponent = ({ adjacencyMatrix, users }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  adjacencyMatrix: state.root.adjacencyMatrix,
-  users: state.root.users
+const mapStateToProps = (state) => ({
+  adjacencyMatrix: state.adjacencyMatrix,
+  users: getUsers(state)
 });
 
 export const GraphPage = connect(
