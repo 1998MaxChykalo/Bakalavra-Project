@@ -44,12 +44,7 @@ export const GraphPageComponent = ({ adjacencyMatrix, users }) => {
     graph.vertices,
     graph.edges
       .map(edge => ({ ...edge, weight: edge.weight + 9 }))
-      // .map(edge => ({
-      //   ...edge,
-      //   weight: edge.weight === 0 ? 0 : (1 / edge.weight).toFixed(2)
-      // }))
   );
-  // console.log(bellmanFord(newGraph, newGraph.vertices[0]));
   console.log(
     "new Matrix: ",
     newGraph.vertices.map(vertex => bellmanFord(newGraph, vertex))

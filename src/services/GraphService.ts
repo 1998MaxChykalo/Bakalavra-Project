@@ -1,5 +1,3 @@
-import { shuffle } from "d3";
-
 export interface Vertex {
   id: number;
   data?: any;
@@ -25,31 +23,21 @@ export class Graph {
     this.edges.forEach(edge => {
       if (edge.source === vertex.id) {
         neighbours.push(this.vertices[edge.target]);
-      } 
-      // else if (edge.target === vertex.id) {
-      //   neighbours.push(this.vertices[edge.source]);
-      // }
+      }
     });
-    // return this.edges.filter(e => e.source === vertex.id);
     return neighbours;
   };
 
-  public findEdge = (vertex: Vertex, neighbour: Vertex) => {
-    return this.edges.find(e => {
-      return (e.target === neighbour.id && e.source === vertex.id);
-        // (e.source === neighbour.id && e.target === vertex.id);
-    });
-  };
+  public findEdge = (vertex: Vertex, neighbour: Vertex) =>
+    this.edges.find(e => e.target === neighbour.id && e.source === vertex.id);
 }
 
 export class GraphService {
   static mapAdjacencyMatrixToGraph(adjacencyMatrix: number[][]): Graph {
     const vertices: Vertex[] = [];
     const edges: Edge[] = [];
-    console.log("====================================");
-    console.log(shuffle(adjacencyMatrix));
-    console.log("====================================");
-    shuffle(adjacencyMatrix).forEach((row, i) => {
+
+    adjacencyMatrix.forEach((row, i) => {
       vertices.push({ id: i });
       row.forEach((val, j) => {
         if (i === j || val === 0) return;

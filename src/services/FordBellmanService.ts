@@ -5,15 +5,12 @@ export class FordBellmanService {
 }
 
 export default function bellmanFord(graph: Graph, startVertex: Vertex) {
-  console.log('edge weights ', graph.edges.map(edge => edge.weight));
   const distances : any= {};
-  const previousVertices: any = {};
 
   // Init all distances with infinity assuming that currently we can't reach
   // any of the vertices except start one.
   distances[startVertex.id] = 0;
-  graph.vertices.forEach((vertex) => {
-    previousVertices[vertex.id] = null;
+  graph.vertices.map((vertex) => {
     if (vertex.id !== startVertex.id) {
       distances[vertex.id] = Infinity;
     }
@@ -36,21 +33,11 @@ export default function bellmanFord(graph: Graph, startVertex: Vertex) {
             const distanceToNeighbor = distanceToVertex + edge.weight;
             if (distanceToNeighbor < distances[neighbor.id]) {
               distances[neighbor.id] = distanceToNeighbor;
-              previousVertices[neighbor.id] = vertex;
             }
           }
         });
       }
     });
   }
-  console.log({
-    distances,
-    previousVertices,
-  });
-
   return distances;
-  // {
-    // distances,
-    // previousVertices,
-  // };
 }

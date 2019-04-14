@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import { AppState } from '../store';
 import { updateAdjacencyMatrix, updateUsers } from '../store/actions';
 
-const createEmptySquareMatrix = (size: number) => Array(size).fill([]).map(() => Array(size).fill(0));
+const createEmpty2dArray = (size: number) => Array(size).fill([]).map(() => Array(size).fill(0));
 
 const createAdjacencyMatrix = (answers: Answer[], size: number) => {
-  const matrix = createEmptySquareMatrix(size);
+  const matrix = createEmpty2dArray(size);
   answers.forEach(answer => {
     let row = answer.from - 1,
       col = answer.to - 1,
@@ -41,7 +41,6 @@ export class MatrixPageView extends React.Component<Props> {
     const users = await fetchUsers();
     const matrix = createAdjacencyMatrix(answers, users.length);
 
-    console.log(matrix);
     this.props.updateUsers(users);
     this.props.updateAdjacencyMatrix(matrix);
     
