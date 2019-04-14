@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout } from 'antd';
 
 import { Header } from '../Header/Header';
@@ -6,7 +6,16 @@ import { Footer } from '../Footer/Footer';
 
 const { Content } = Layout;
 
-const App: React.FC = ({ children }) => {
+export interface Props {
+  fetchAnswers: any;//() => (dispatch: any) => Promise<any>;
+  fetchUsers: any;
+}
+
+export const App: React.FC<Props> = ({ children, fetchAnswers, fetchUsers }) => {
+  useEffect(() => {
+    fetchAnswers();
+    fetchUsers();
+  })
   return (
     <Layout>
       <Header />
@@ -17,5 +26,3 @@ const App: React.FC = ({ children }) => {
     </Layout>
   )
 }
-
-export default App;
