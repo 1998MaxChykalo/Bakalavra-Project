@@ -3,6 +3,7 @@ import User from "../models/User";
 
 export type MapFunction<T> = (res: any) => (T)[];
 export default class Mapper {
+
   static toAnswer({ to, from, weight }: any): Answer | null {
     return (to && from && weight) ? 
       <Answer>{ to, from, weight }
@@ -11,7 +12,7 @@ export default class Mapper {
 
   static toAnswers(values: any[]): Answer[] {
     const res: Answer[] = [];
-    values.map(Mapper.toAnswer).forEach(mappe => mappe !== null && res.push(mappe));
+    values.map(Mapper.toAnswer).forEach(answer => answer && res.push(answer));
     return res;
   }
 
@@ -21,7 +22,7 @@ export default class Mapper {
 
   static toUsers(values: any[]): User[] {
     const res: User[] = [];
-    values.map(Mapper.toUser).forEach(mappe => mappe !== null && res.push(mappe));
+    values.map(Mapper.toUser).forEach(user => user && res.push(user));
     return res;
   }
 }
